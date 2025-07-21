@@ -2,7 +2,6 @@ package com.project.api.service.dto;
 
 import com.project.api.model.Category;
 import com.project.api.model.annotation.NotNullNotWhitespace;
-import com.project.api.service.InvalidCategoryException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
