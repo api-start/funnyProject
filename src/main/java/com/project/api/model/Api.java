@@ -1,18 +1,19 @@
 package com.project.api.model;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Api {
-    private String id;
+    private UUID id;
     private String name;
     private String urlBase;
     private String description;
     private String version;
     private LocalDate createdDate;
     private LocalDate updatedDate;
-    private String accountId;
+    private UUID accountId;
     private Category category;
 
-    private Api(String id, String name, String urlBase, String description, String version, LocalDate createdDate, LocalDate updatedDate, String accountId, Category category) {
+    private Api(UUID id, String name, String urlBase, String description, String version, LocalDate createdDate, LocalDate updatedDate, UUID accountId, Category category) {
         this.id = id;
         this.name = name;
         this.urlBase = urlBase;
@@ -24,7 +25,7 @@ public class Api {
         this.category = category;
     }
 
-    public static Api createNew(String id, String name, String urlBase, String description, String version, LocalDate createdDate, LocalDate updatedDate, String accountId, Category category) {
+    public static Api createNew(UUID id, String name, String urlBase, String description, String version, LocalDate createdDate, LocalDate updatedDate, UUID accountId, Category category) {
         return new Api(
                 id,
                 name,
@@ -38,7 +39,7 @@ public class Api {
         );
     }
 
-    public static Api fromDatabase(String id, String name, String urlBase, String description, String version, LocalDate createdDate, LocalDate updatedDate, String accountId, Category category) {
+    public static Api fromDatabase(UUID id, String name, String urlBase, String description, String version, LocalDate createdDate, LocalDate updatedDate, UUID accountId, Category category) {
         return new Api(id,name,urlBase,description,version,createdDate,updatedDate,accountId,category);
     }
 
@@ -54,7 +55,7 @@ public class Api {
         }
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -82,7 +83,7 @@ public class Api {
         return updatedDate;
     }
 
-    public String getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 

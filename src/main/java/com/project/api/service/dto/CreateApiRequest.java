@@ -34,15 +34,6 @@ public class CreateApiRequest {
         this.urlBase = urlBase;
         this.description = description;
         this.version = version;
-        this.category = validateCategory(category);
-    }
-
-    private Category validateCategory(String category){
-        Category cat = null;
-        try {
-            cat = Category.valueOf(category); // need the catch otherwise would throw exception
-        }catch (IllegalArgumentException e){
-        }
-        return cat;
+        this.category = Category.fromString(category);
     }
 }

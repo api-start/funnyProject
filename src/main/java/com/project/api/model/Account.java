@@ -1,16 +1,10 @@
 package com.project.api.model;
-
-import com.project.api.model.annotation.NotNullNotWhitespace;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import org.springframework.beans.factory.annotation.Value;
-
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Account {
 
-    private String id;
+    private UUID id;
     private String username;
     private String email; // NO SE PUEDE CAMBIAR
     private String password;
@@ -18,7 +12,7 @@ public class Account {
     private LocalDate createdDate;
 
 
-    private Account(String id, String username, String email, String password, boolean enabled, LocalDate createdDate) {
+    private Account(UUID id, String username, String email, String password, boolean enabled, LocalDate createdDate) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -27,7 +21,7 @@ public class Account {
         this.createdDate = createdDate;
     }
 
-    public static Account createNew(String id, String username, String email, String password) {
+    public static Account createNew(UUID id, String username, String email, String password) {
         return new Account(
                 id,
                 username,
@@ -38,7 +32,7 @@ public class Account {
         );
     }
 
-    public static Account fromDatabase(String id, String username, String email,
+    public static Account fromDatabase(UUID id, String username, String email,
                                        String password, boolean enabled, LocalDate createdDate) {
         return new Account(id, username, email, password, enabled, createdDate);
     }
@@ -51,7 +45,7 @@ public class Account {
         enabled = true;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
