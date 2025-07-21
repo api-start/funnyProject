@@ -2,6 +2,7 @@ package com.project.api.repository;
 
 import com.project.api.model.Api;
 import com.project.api.model.Category;
+import com.project.api.repository.interfaces.ApiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("postgres")
-public class ApiDataAccessService implements ApiRepository{
+@Repository
+public class ApiDataAccessService implements ApiRepository {
 
     private final JdbcTemplate jdbcTemplate;
 

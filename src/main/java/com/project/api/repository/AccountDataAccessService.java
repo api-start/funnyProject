@@ -1,6 +1,7 @@
 package com.project.api.repository;
 
 import com.project.api.model.Account;
+import com.project.api.repository.interfaces.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("postgres")
-public class AccountDataAccessService implements AccountRepository{
+@Repository
+public class AccountDataAccessService implements AccountRepository {
 
 
     private final JdbcTemplate jdbcTemplate;
