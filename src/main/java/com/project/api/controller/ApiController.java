@@ -16,13 +16,11 @@ public class ApiController {
 
     @PostMapping("/")
     public void createApi(@Valid CreateApiRequest createApiRequest){
-
         //TODO: CALL SERVICE AND RETURN RESPONSE_ENTITY WITH API_ID AND HTTP OK
     }
 
     @GetMapping("/{id}")
     public void getApi(@PathVariable String id){
         //TODO: CALL SERVICE AND RETURN RESPONSE_ENTITY WITH API info AND HTTP OK
-
     }
 }
