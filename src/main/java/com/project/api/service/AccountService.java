@@ -1,7 +1,7 @@
 package com.project.api.service;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+@Component
 public class AccountService {
 }

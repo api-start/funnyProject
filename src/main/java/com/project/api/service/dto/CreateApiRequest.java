@@ -36,4 +36,24 @@ public class CreateApiRequest {
         this.version = version;
         this.category = Category.fromString(category);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUrlBase() {
+        return urlBase;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
 }
