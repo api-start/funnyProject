@@ -60,6 +60,48 @@ public class AccountDataAccessService implements AccountRepository {
     }
 
     @Override
+    public Optional<Account> findByUsername(String username) {
+        return jdbcTemplate.query(
+                "SELECT * FROM account WHERE username = ?",
+                (PreparedStatement ps) -> {ps.setObject(1, username);},
+                (ResultSet rs) -> {
+                    if (rs.next()){
+                        return Optional.of(Account.fromDatabase(
+                                UUID.fromString(rs.getString("id")),
+                                rs.getString("username"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getBoolean("enabled"),
+                                rs.getDate("created_date").toLocalDate()
+                        ));
+                    }
+                    return Optional.empty();
+                }
+        );
+    }
+
+    @Override
+    public Optional<Account> findByEmail(String email) {
+        return jdbcTemplate.query(
+                "SELECT * FROM account WHERE email = ?",
+                (PreparedStatement ps) -> {ps.setObject(1, email);},
+                (ResultSet rs) -> {
+                    if (rs.next()){
+                        return Optional.of(Account.fromDatabase(
+                                UUID.fromString(rs.getString("id")),
+                                rs.getString("username"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getBoolean("enabled"),
+                                rs.getDate("created_date").toLocalDate()
+                        ));
+                    }
+                    return Optional.empty();
+                }
+        );
+    }
+
+    @Override
     public List<Account> findAll() {
         return jdbcTemplate.query(
                 "SELECT * FROM account",

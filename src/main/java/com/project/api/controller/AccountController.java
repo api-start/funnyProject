@@ -1,28 +1,34 @@
 package com.project.api.controller;
 
+import com.project.api.model.Account;
+import com.project.api.service.AccountService;
 import com.project.api.service.dto.CreateAccountRequest;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/v1/accounts")
 public class AccountController {
-    //TODO: ADD SERVICE ATTRIBUTE AND CONSTRUCTOR AUTOWIRING
+    private final AccountService accountService;
 
-
-    @PostMapping("/")
-    public ResponseEntity<String> createAccount(@Valid CreateAccountRequest createAccountRequest){
-        //TODO: CALL SERVICE
-        return ResponseEntity.ok("Account created successfully");
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<String> getAccount(@Valid @PathVariable String id){
-        //TODO: CALL SERVICE AND RETURN ACCOUNT INFO
-        return ResponseEntity.ok("Account created successfully");
+    @PostMapping("/")
+    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest){
+        String id = accountService.createUser(createAccountRequest);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getAccount(@PathVariable("id") String id){
+        Account account = accountService.getAccount(id);
+        return ResponseEntity.ok(account);
     }
 }
