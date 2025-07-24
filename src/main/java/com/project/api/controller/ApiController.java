@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/api/v1/apis")
@@ -24,9 +23,10 @@ public class ApiController {
     }
 
 
-    @PostMapping("/")
-    public ResponseEntity<String> createApi(@Valid CreateApiRequest createApiRequest){
+    @PostMapping("/{accountId}")
+    public ResponseEntity<String> createApi(@Valid @RequestBody CreateApiRequest createApiRequest, @PathVariable String accountId){
         //TODO: ADD AUTHENTICATION SO CAN PASS ACCOUNT_ID
+        //String id = apiService.createApi(accountId,createApiRequest);
         String id = apiService.createApi(accountId,createApiRequest);
         return new ResponseEntity(id, HttpStatus.CREATED);
 

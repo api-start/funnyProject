@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 public class CreateAccountRequest {
     @NotNullNotWhitespace(message = "Username cannot contain spaces or be null")
-    @Size(min = 5, message = "Username must be min 5 characters")
+    @Size(min = 3, message = "Username must be min 3 characters")
     @Size(max = 50, message = "Username must be max 50 characters")
     private String username;
 
