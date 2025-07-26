@@ -1,6 +1,5 @@
-package com.project.api.configuration;
+package com.project.api.configuration.security;
 
-import com.project.api.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,10 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final AccountService accountUserDetails;
+    private final AccountUserDetailsService accountUserDetails;
 
     @Autowired
-    public SecurityConfig(AccountService accountUserDetails) {
+    public SecurityConfig(AccountUserDetailsService accountUserDetails) {
         this.accountUserDetails = accountUserDetails;
     }
 

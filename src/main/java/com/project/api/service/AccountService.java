@@ -1,7 +1,7 @@
 package com.project.api.service;
 
 import com.project.api.model.Account;
-import com.project.api.model.security.AccountUserDetails;
+import com.project.api.configuration.security.AccountUserDetails;
 import com.project.api.repository.AccountDataAccessService;
 import com.project.api.service.dto.CreateAccountRequest;
 import com.project.api.service.exception.EmailAlreadyInUseException;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AccountService implements UserDetailsService {
+public class AccountService {
 
     private final AccountDataAccessService accountDao;
 
@@ -48,12 +48,4 @@ public class AccountService implements UserDetailsService {
         return accountDao.findById(UUID.fromString(id)).orElse(null); // TODO: SHOULD HAVE DTOS FOR OBJECT RETRIEVALS
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { //TODO: ADD EXCEPTION TO EXCEPTION HANDLER
-        Optional<Account> account = accountDao.findByUsername(username);
-        if (account.isEmpty()){
-            throw new UsernameNotFoundException("User not found");
-        }
-        return new AccountUserDetails(account.get().getId(), account.get().getUsername(),account.get().getPassword());
-    }
 }
