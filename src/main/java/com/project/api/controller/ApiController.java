@@ -1,12 +1,15 @@
 package com.project.api.controller;
 
 import com.project.api.model.Api;
+import com.project.api.model.security.AccountUserDetails;
 import com.project.api.service.ApiService;
 import com.project.api.service.dto.CreateApiRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +26,11 @@ public class ApiController {
     }
 
 
-    @PostMapping("/{accountId}")
-    public ResponseEntity<String> createApi(@Valid @RequestBody CreateApiRequest createApiRequest, @PathVariable String accountId){
-        //TODO: ADD AUTHENTICATION SO CAN PASS ACCOUNT_ID
-        //String id = apiService.createApi(accountId,createApiRequest);
+    @PostMapping
+    public ResponseEntity<String> createApi(@Valid @RequestBody CreateApiRequest createApiRequest, @AuthenticationPrincipal AccountUserDetails auth){
+        UUID accountId = auth.getId();
         String id = apiService.createApi(accountId,createApiRequest);
-        return new ResponseEntity(id, HttpStatus.CREATED);
-
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
