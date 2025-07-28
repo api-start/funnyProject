@@ -1,5 +1,6 @@
 package com.project.api.service;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import com.project.api.model.Account;
 import com.project.api.configuration.security.AccountUserDetails;
 import com.project.api.repository.AccountDataAccessService;
@@ -27,7 +28,7 @@ public class AccountService {
     @Transactional
     public String createUser(CreateAccountRequest accountDto){
         validateAccountUniqueness(accountDto);
-        UUID id = UUID.randomUUID();
+        UUID id = generateUUIDV7();
         Account account = Account.createNew(id,accountDto.getUsername(), accountDto.getEmail(),accountDto.getPassword());
         accountDao.save(account);
         return account.getId().toString();
@@ -45,7 +46,10 @@ public class AccountService {
     }
 
     public Account getAccount(String id){
-        return accountDao.findById(UUID.fromString(id)).orElse(null); // TODO: SHOULD HAVE DTOS FOR OBJECT RETRIEVALS
+        return accountDao.findById(UuidCreator.fromString(id)).orElse(null); // TODO: SHOULD HAVE DTOS FOR OBJECT RETRIEVALS
     }
 
+    private UUID generateUUIDV7(){
+        return UuidCreator.getTimeOrderedEpoch();
+    }
 }

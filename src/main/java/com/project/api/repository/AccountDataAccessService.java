@@ -1,5 +1,6 @@
 package com.project.api.repository;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import com.project.api.model.Account;
 import com.project.api.repository.interfaces.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class AccountDataAccessService implements AccountRepository {
                 (ResultSet rs) -> {
                     if (rs.next()){
                         return Optional.of(Account.fromDatabase(
-                                UUID.fromString(rs.getString("id")),
+                                UuidCreator.fromString(rs.getString("id")),
                                 rs.getString("username"),
                                 rs.getString("email"),
                                 rs.getString("password"),
@@ -67,7 +68,7 @@ public class AccountDataAccessService implements AccountRepository {
                 (ResultSet rs) -> {
                     if (rs.next()){
                         return Optional.of(Account.fromDatabase(
-                                UUID.fromString(rs.getString("id")),
+                                UuidCreator.fromString(rs.getString("id")),
                                 rs.getString("username"),
                                 rs.getString("email"),
                                 rs.getString("password"),
@@ -88,7 +89,7 @@ public class AccountDataAccessService implements AccountRepository {
                 (ResultSet rs) -> {
                     if (rs.next()){
                         return Optional.of(Account.fromDatabase(
-                                UUID.fromString(rs.getString("id")),
+                                UuidCreator.fromString(rs.getString("id")),
                                 rs.getString("username"),
                                 rs.getString("email"),
                                 rs.getString("password"),
@@ -106,7 +107,7 @@ public class AccountDataAccessService implements AccountRepository {
         return jdbcTemplate.query(
                 "SELECT * FROM account",
                 ((rs, rowNum) -> Account.fromDatabase(
-                        UUID.fromString(rs.getString("id")),
+                        UuidCreator.fromString(rs.getString("id")),
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password"),
@@ -114,5 +115,7 @@ public class AccountDataAccessService implements AccountRepository {
                         rs.getDate("created_date").toLocalDate()
                 ))
         );
+
     }
+
 }

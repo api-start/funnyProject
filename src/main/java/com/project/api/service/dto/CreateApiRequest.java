@@ -34,7 +34,7 @@ public class CreateApiRequest {
         this.urlBase = urlBase;
         this.description = description;
         this.version = version;
-        this.category = Category.fromString(category);
+        this.category = Category.fromName(category);
     }
 
     public String getName() {

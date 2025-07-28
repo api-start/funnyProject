@@ -1,5 +1,6 @@
 package com.project.api.repository;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import com.project.api.model.Api;
 import com.project.api.model.Category;
 import com.project.api.repository.interfaces.ApiRepository;
@@ -35,15 +36,15 @@ public class ApiDataAccessService implements ApiRepository {
         return jdbcTemplate.query(
                 "SELECT * FROM account",
                 ((rs, rowNum) -> Api.fromDatabase(
-                        UUID.fromString(rs.getString("id")),
+                        UuidCreator.fromString(rs.getString("id")),
                         rs.getString("name"),
                         rs.getString("url_base"),
                         rs.getString("description"),
                         rs.getString("version"),
                         rs.getDate("updated_date").toLocalDate(),
                         rs.getDate("created_date").toLocalDate(),
-                        UUID.fromString(rs.getString("account_id")),
-                        Category.fromId(UUID.fromString(rs.getString("id_category")))
+                        UuidCreator.fromString(rs.getString("account_id")),
+                        Category.fromId(UuidCreator.fromString(rs.getString("id_category")))
                 ))
         );
     }
@@ -56,15 +57,15 @@ public class ApiDataAccessService implements ApiRepository {
                 (ResultSet rs) -> {
                     if (rs.next()){
                         return Optional.of(Api.fromDatabase(
-                                UUID.fromString(rs.getString("id")),
+                                UuidCreator.fromString(rs.getString("id")),
                                 rs.getString("name"),
                                 rs.getString("url_base"),
                                 rs.getString("description"),
                                 rs.getString("version"),
                                 rs.getDate("created_date").toLocalDate(),
                                 rs.getDate("updated_date").toLocalDate(),
-                                UUID.fromString(rs.getString("account_id")),
-                                Category.fromId(UUID.fromString(rs.getString("id_category")))
+                                UuidCreator.fromString(rs.getString("account_id")),
+                                Category.fromId(UuidCreator.fromString(rs.getString("id_category")))
                         ));
                     }
                     return Optional.empty();
@@ -79,15 +80,15 @@ public class ApiDataAccessService implements ApiRepository {
             @Override
             public Api extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (rs.next()){
-                    return Api.fromDatabase(UUID.fromString(rs.getString("id")),
+                    return Api.fromDatabase(UuidCreator.fromString(rs.getString("id")),
                             rs.getString("name"),
                             rs.getString("url_base"),
                             rs.getString("description"),
                             rs.getString("version"),
                             rs.getDate("created_date").toLocalDate(),
                             rs.getDate("updated_date").toLocalDate(),
-                            UUID.fromString(rs.getString("account_id")),
-                            Category.fromId(UUID.fromString(rs.getString("id_category"))));
+                            UuidCreator.fromString(rs.getString("account_id")),
+                            Category.fromId(UuidCreator.fromString(rs.getString("id_category"))));
                 }
                 return null;
             }
