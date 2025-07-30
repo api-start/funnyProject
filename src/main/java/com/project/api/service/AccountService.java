@@ -7,9 +7,11 @@ import com.project.api.repository.AccountDataAccessService;
 import com.project.api.service.dto.CreateAccountRequest;
 import com.project.api.service.exception.EmailAlreadyInUseException;
 import com.project.api.service.exception.UsernameAlreadyInUseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,16 +22,20 @@ import java.util.UUID;
 public class AccountService {
 
     private final AccountDataAccessService accountDao;
+    private final PasswordEncoder passwordEncoder;
 
-    public AccountService(AccountDataAccessService accountDao) {
+    @Autowired
+    public AccountService(AccountDataAccessService accountDao,PasswordEncoder passwordEncoder) {
         this.accountDao = accountDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public String createUser(CreateAccountRequest accountDto){
         validateAccountUniqueness(accountDto);
         UUID id = generateUUIDV7();
-        Account account = Account.createNew(id,accountDto.getUsername(), accountDto.getEmail(),accountDto.getPassword());
+        String hashedPassword = passwordEncoder.encode(accountDto.getPassword());
+        Account account = Account.createNew(id,accountDto.getUsername(), accountDto.getEmail(),hashedPassword);
         accountDao.save(account);
         return account.getId().toString();
     }
